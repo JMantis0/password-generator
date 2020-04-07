@@ -18,5 +18,8 @@ The goal of this project is to create an application that generates a random pas
 * THEN a password is generated that matches the selected criteria
 * WHEN the password is generated
 * THEN the password is either displayed in an alert or written to the page
-```
+
+
+## Progress
+
 The first task I completed is to write code that collects the number of characters the user wishes his/her new password to be, and to throw an error  and let the user retry if the number does not meet acceptance criteria (at least 8, max 128).
