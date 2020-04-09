@@ -6,10 +6,16 @@ let uppercase = true;
 let numeric = true;
 let special = true;
 let noneSelected = true;
+let pool = [];
+let password = "";
+
+let upperArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+let lowerArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+let numericArr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+let specialArr = [" ", "!", "\"", "#", "$", "%", "&", "\'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"];
 
 //  Following 4 functions prompt user to choose the types of characters
 //  to be included in the password:
-
 function includeLowercase() {
 
 	let confirmLowercase = confirm("Click OK to include lowercase characters.  Otherwise, click Cancel.");
@@ -39,7 +45,6 @@ function includeSpecial() {
 
 //  Function selectCharacters() calls above functions from within while-loop.
 //  Logic causes while-loop to recur unless user confirms at least one character type
-
 function selectCharacters() {
 
 	while(noneSelected) {
@@ -63,6 +68,33 @@ function selectCharacters() {
 	}
 
 }
+
+//  Function assemblePassword resets pool array and password string.
+//  Logic adds characters to pool array according to criteria input of user
+//  For loop assembles password.
+function assemblePassword() {
+
+	pool = [];
+	password = "";
+
+	if(uppercase) {
+		pool = pool.concat(upperArr);
+	}
+	if(lowercase) {
+		pool = pool.concat(lowerArr);
+	}
+	if(numeric) {
+		pool = pool.concat(numericArr);
+	}
+	if(special) {
+		pool = pool.concat(specialArr);
+	}
+
+	for(let i = 0; i < passwordLength; i++) {
+		password = password + pool[Math.floor(Math.random() * pool.length)];
+	}
+
+}
 	
 
 //  Function generatePassword creates the new password.  Is called upon click of the big red button.
@@ -71,6 +103,7 @@ function generatePassword() {
 	noneSelected = true;
 	passwordLength = validatePasswordLength(validateIsANumber(prompt("Enter number of characters in new password (min 8 max 128)")));
 	selectCharacters();
+	assemblePassword();
 	consolePrintout();
 
 	
@@ -97,7 +130,6 @@ function validateIsANumber(isThisANumber) {
 	return numberForSure;
 
 }
-
 
 //  Function validatesPasswordLength() tests whether length lies in range 8-128
 //  Logic prompts User to enter a new length if it lies outsite range 8-128

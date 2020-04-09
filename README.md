@@ -40,6 +40,12 @@ The goal of this project is to create an application that generates a random pas
 
 4) 4/9/2020
 
-* Created function `selectCharacters()` which calls critera-gathering functions for character types and utilizes an if/then within a while-loop to ensure the user includes at least one character type.
+* Created function selectCharacters() which calls critera-gathering functions for character types and utilizes an if/then within a while-loop to ensure the user includes at least one character type.
 
-* Updated comments throughtout script.js
+* Updated comments throughout script.js
+
+5) 4/9/2020
+
+* Added Global arrays `upperArr` populated with uppercase characters, `lowerArr` populated with lowercase characters, `numericArr` populated with numeric characters, and `specialArr` populated with special characters.  Also added global array `pool` and global string `password`.
+
+* Added function `assemblePassword();` which uses logic to concatenate global character arrays into `pool` according to user input, and then selects elements from `pool` via randomized indexes within a for-loop to generate `password`.
