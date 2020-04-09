@@ -1,7 +1,6 @@
-# Password Generator with Javascript
+# Password Generator with JavaScript
 
 The goal of this project is to create an application that generates a random password based on user-selected criteria. The app runs in the browser and features dynamically updated HTML and CSS powered JavaScript, and has a responsive user-interface.  The app is compliant with the following acceptance criteria:
-
 
  GIVEN I need a new, secure password
 *  WHEN I click the button to generate a password
@@ -19,12 +18,11 @@ The goal of this project is to create an application that generates a random pas
 * WHEN the password is generated
 * * THEN the password is either displayed in an alert or written to the page
 
-
 ## Progress
 
 1) 4/7/2020 
 
-* The first task I completed is to write code that collects the number of characters the user wishes his/her new password to be, and to throw an error  and let the user retry if the number does not meet acceptance criteria (at least 8, max 128).
+* The first task I completed is to write code that collects the number of characters the user wishes his/her new password to be, and to throw an error and let the user retry if the number does not meet acceptance criteria (at least 8, max 128).
 
 2) 4/8/2020
 
@@ -39,3 +37,9 @@ The goal of this project is to create an application that generates a random pas
 * Added variable initialization set to hold booleans variables (representing which types of characters to include in password) and password length (`length`, `lowercase`, `uppercase`, `numeric`, and `special`).
 
 * Created functions to gather desired criteria from user `confirmUppercase()`, `confirmLowercase()`, `confirmNumeric()`, `confirmSpecial()`.
+
+4) 4/9/2020
+
+* Created function `selectCharacters()` which calls critera-gathering functions for character types and utilizes an if/then within a while-loop to ensure the user includes at least one character type.
+
+* Updated comments throughtout script.js
