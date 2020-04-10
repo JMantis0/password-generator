@@ -1,21 +1,124 @@
-let generateBtn = document.querySelector("#generate");
+/* *******************************************************************************
+			***************************************************
+**********************************************************************************
+********  --  P  A  S  S  W  O  R  D  ---  G  E  N  E  R  A  T  O  R  --  ********
+**********************************************************************************
+			****************  By: Jesse Mazur  ****************
+********************************************************************************** */
 
-let passwordLength = 0;
-let lowercase = true;
-let uppercase = true;
-let numeric = true;
-let special = true;
-let noneSelected = true;
-let pool = [];
-let password = "";
+let passwordLength = 0;  // Variable controls length of password to be generated.
 
+let lowercase = true;	// These variables control whether or not to include
+let uppercase = true;	// character type indicated by the variable name.
+let numeric = true;		// If true, the type is include.
+let special = true;		// If false, the type is not included.
+
+let noneSelected = true; // Variable for logic that requires user to select
+					// at least one character type.
+
+let pool = [];			// Variable that password characters are randomly 
+					// selected from.
+
+let password = "";		// Variable for the password.
+
+// Arrays of potential password characters.
 let upperArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 let lowerArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 let numericArr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 let specialArr = [" ", "!", "\"", "#", "$", "%", "&", "\'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~"];
 
-//  Following 4 functions prompt user to choose the types of characters
-//  to be included in the password:
+let generateBtn = document.querySelector("#generate"); // API assigns HTML button.
+generateBtn.addEventListener("click", writePassword);	// Adds listener to button.
+
+// Function writePassword() calls collectCriteria() and places password inside
+// HTML element. Called when the button with id="generate" is clicked.
+function writePassword() {
+
+	collectCriteria();
+	assemblePassword();
+	let passwordText = document.querySelector("#password");
+	passwordText.value = password;
+
+}
+
+// Function collectCritera() calls functions that collect password criteria.
+function collectCriteria() {
+
+	passwordLength = validatePasswordLength(validateIsANumber(prompt("Enter number of characters in new password (min 8 max 128)")));
+	selectCharacters();
+	
+}
+
+// Function validateIsANumber tests whether user input is actually a number.
+// Logic prompts user to enter new character length if entry is not a number.
+function validateIsANumber(isThisANumber) {
+
+	while (isNaN(parseInt(isThisANumber)) || isNaN(Number(isThisANumber))) {
+
+		alert("Password length must be a number");
+		isThisANumber = prompt("Enter number of characters in new password (min 8 max 128)");
+
+	}
+
+	let numberForSure = isThisANumber;
+	return numberForSure;
+
+}
+
+// Function validatesPasswordLength() tests whether length lies in range 8-128.
+// Logic prompts User to enter a new length if it lies outsite range 8-128.
+function validatePasswordLength(length) {
+
+	while (length < 8 || length > 128) {
+
+		if (length < 8) {
+
+			alert("Password must be at least 8 characters.");
+			length = validateIsANumber(prompt("Enter number of characters in new password (min 8 max 128)"));
+
+		}
+		else if (length > 128) {
+
+			alert("Password must be less than 128 characters.");
+			length = validateIsANumber(prompt("Enter number of characters in new password (min 8 max 128)"));
+
+		}
+
+	}
+
+	return length;
+
+}
+
+// Function selectCharacters() calls 'include' functions from within while-loop.
+// Logic causes requires user to confirm at least one character type.
+function selectCharacters() {
+
+	noneSelected = true;
+	while (noneSelected) {
+
+		lowercase = includeLowercase();
+		uppercase = includeUppercase();
+		numeric = includeNumeric();
+		special = includeSpecial();
+
+		if (!lowercase && !uppercase && !numeric && !special) {
+
+			alert("You must include at least one character type.");
+
+		}
+		else {
+
+			noneSelected = false;
+
+		}
+
+	}
+
+}
+
+// The following 4 'include' functions prompt user to choose the 
+// types of characters to be included in the password.
 function includeLowercase() {
 
 	let confirmLowercase = confirm("Click OK to include lowercase characters.  Otherwise, click Cancel.");
@@ -38,140 +141,113 @@ function includeNumeric() {
 }
 
 function includeSpecial() {
-	
+
 	let confirmSpecial = confirm("Click OK to include special characters.  Otherwise, click Cancel");
 	return confirmSpecial;
 }
 
-//  Function selectCharacters() calls above functions from within while-loop.
-//  Logic causes while-loop to recur unless user confirms at least one character type
-function selectCharacters() {
-
-	while(noneSelected) {
-	
-		lowercase = includeLowercase();
-		uppercase = includeUppercase();
-		numeric = includeNumeric();
-		special = includeSpecial();
-
-		if(!lowercase && !uppercase && !numeric && !special) {
-
-			alert("You must include at least one character type.");
-
-		}
-		else {
-
-			noneSelected = false;
-
-		}
-
-	}
-
-}
-
-//  Function assemblePassword resets pool array and password string.
-//  Logic adds characters to pool array according to criteria input of user
-//  For loop assembles password.
+// Function assemblePassword() creates a pool array of characters according
+// to the criteria input by user. A for-loop concatenates the password from pool.
+// Then logic checks the password for each character type to be included.
+// If the check fails to find such characters type a new password is generated. 
 function assemblePassword() {
 
-	pool = [];
-	password = "";
+	let passwordComplete = false;
 
-	if(uppercase) {
-		pool = pool.concat(upperArr);
-	}
-	if(lowercase) {
-		pool = pool.concat(lowerArr);
-	}
-	if(numeric) {
-		pool = pool.concat(numericArr);
-	}
-	if(special) {
-		pool = pool.concat(specialArr);
-	}
+	while(!passwordComplete) {
 
-	for(let i = 0; i < passwordLength; i++) {
-		password = password + pool[Math.floor(Math.random() * pool.length)];
-	}
+		pool = [];
+		password = "";
 
-}
-	
-
-//  Function generatePassword creates the new password.  Is called upon click of the big red button.
-function generatePassword() {
-
-	noneSelected = true;
-	passwordLength = validatePasswordLength(validateIsANumber(prompt("Enter number of characters in new password (min 8 max 128)")));
-	selectCharacters();
-	assemblePassword();
-	consolePrintout();
-
-	
-}
-
-//  Function validateIsANumber tests whether user input is actually a number
-//  Logic prompts user to enter new character length if entry is not a number
-function validateIsANumber(isThisANumber) {
-
-	//  Number() won't say a blank space is a NaN but parseInt() does.
-	//  ParseInt() won't say any string starting with a number is a NaN Number() does 
-	//              ie: "9 apples" or "30 years"
-	//  Logic uses both together to prevent a non-numeric string starting with a number 
-	//  or a blank space from being allowed as a password length.
-	while(isNaN(parseInt(isThisANumber)) || isNaN(Number(isThisANumber))) {
-
-		alert("Password length must be a number");
-
-		isThisANumber = prompt("Enter number of characters in new password (min 8 max 128)");
-
-	}
-
-	let numberForSure = isThisANumber;
-	return numberForSure;
-
-}
-
-//  Function validatesPasswordLength() tests whether length lies in range 8-128
-//  Logic prompts User to enter a new length if it lies outsite range 8-128
-function validatePasswordLength(length) {
-	
-	while (length < 8 || length > 128) {
-
-		if (length < 8) {
-
-			alert("Password must be at least 8 characters.");
-			length = validateIsANumber(prompt("Enter number of characters in new password (min 8 max 128)"));
-
+		if (uppercase) {
+			pool = pool.concat(upperArr);
 		}
-		else if (length > 128) {
+		if (lowercase) {
+			pool = pool.concat(lowerArr);
+		}
+		if (numeric) {
+			pool = pool.concat(numericArr);
+		}
+		if (special) {
+			pool = pool.concat(specialArr);
+		}
 
-			alert("Password must be less than 128 characters.");
-			length = validateIsANumber(prompt("Enter number of characters in new password (min 8 max 128)"));
+		for (let i = 0; i < passwordLength; i++) {
+			password = password + pool[Math.floor(Math.random() * pool.length)];
+		}
+
+		let noUpper = false;
+		if (uppercase) {
+			noUpper = true;
+			for (i = 0; i < upperArr.length && noUpper; i++) {
+
+				if (password.includes(upperArr[i])) {
+
+					noUpper = false;
+					break;			
+
+				}
+				
+			}
 
 		}
 
+		let noLower = false;
+		if (lowercase) {
+			noLower = true;
+			for (i = 0; i < lowerArr.length && noLower; i++) {
+
+				if (password.includes(lowerArr[i])) {
+
+					noLower = false;			
+					break;
+				}
+
+			}
+
+		}
+
+		let noNumeric = false;
+		if (numeric) {
+			noNumeric = true;
+			for (i = 0; i < numericArr.length && noNumeric; i++) {
+
+				if (password.includes(numericArr[i])) {
+
+					noNumeric = false;	
+					break;		
+
+				}
+
+			}
+
+		}
+
+		let noSpecial = false;
+		if (special) {
+			noSpecial = true;
+			for (i = 0; i < specialArr.length && noSpecial; i++) {
+
+				if (password.includes(specialArr[i])) {
+
+					noSpecial = false;
+					break;	
+
+				}
+
+			}
+
+		}
+		
+		if(!noUpper && !noLower && !noNumeric && !noSpecial) {
+
+			passwordComplete = true;
+			
+		}
+
 	}
-	
-	return length;
 
 }
-
-// Write password to the #password input
-function writePassword() {
-
-	let password = generatePassword();
-	//  similar to the querySelector on line 6, line 48 assigns the <text> element on line 32 of the HTML to variable passwordText
-	let passwordText = document.querySelector("#password");
-
-	passwordText.value = password;
-
-}
-
-// Add event listener to generate button
-// Remember above we assigned the HTML button on line 38 of the HTML to variable generateBtn
-// This line below makes it so when that button is clicked, the writePassword() function is called
-generateBtn.addEventListener("click", writePassword);
-
 
 // Function consolePrintout() assists developer in testing and debugging
 function consolePrintout() {
