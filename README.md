@@ -4,11 +4,7 @@ The goal of this project is to create an application that generates a random pas
 
 The app displays a simple interface with a single button.
 When clicked the user is given several options via prompt on how long the password should be and what types of characters to include:
-Password length from 8 to 128 characters
-Capital Letters
-Lowercase Letters
-Numeric Characters
-Special Characters
+Password length from 8 to 128 characters, Capital Letters, Lowercase Letters, Numeric Characters, and/or Special Characters.
 
 Once all the inputs are collected the program generates and displays a randomly generated password that meets the user's criteria!
 
