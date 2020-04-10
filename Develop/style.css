@@ -41,13 +41,14 @@ header {
   max-width: 800px;
   padding: 30px 40px;
 }
-
+ 
+/* horizontal line */
 .card-header::after {
   content: " ";
   display: block;
   width: 100%;
   background: #e7e9eb;
-  height: 2px;
+  height: 2px;	
 }
 
 .card-body {
@@ -58,6 +59,7 @@ header {
   text-align: center;
 }
 
+/* horizontal line */
 .card-footer::before {
   content: " ";
   display: block;

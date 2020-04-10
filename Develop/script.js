@@ -11,12 +11,12 @@ let passwordLength = 0;  // Variable controls length of password to be generated
 let lowercase = true;	// These variables control whether or not to include
 let uppercase = true;	// character type indicated by the variable name.
 let numeric = true;		// If true, the type is include.
-let special = true;		// If false, the type is not included.
+let special = true;		// If false, the type is not excluded.
 
 let noneSelected = true; // Variable for logic that requires user to select
 					// at least one character type.
 
-let pool = [];			// Variable that password characters are randomly 
+let pool = [];			// Array that password characters are randomly 
 					// selected from.
 
 let password = "";		// Variable for the password.
@@ -30,8 +30,8 @@ let specialArr = [" ", "!", "\"", "#", "$", "%", "&", "\'", "(", ")", "*", "+", 
 let generateBtn = document.querySelector("#generate"); // API assigns HTML button.
 generateBtn.addEventListener("click", writePassword);	// Adds listener to button.
 
-// Function writePassword() calls collectCriteria() and places password inside
-// HTML element. Called when the button with id="generate" is clicked.
+// Function writePassword() calls collectCriteria(), assemblePassword(), places
+// password in HTML element. Called upon click of the generateBtn.
 function writePassword() {
 
 	collectCriteria();
@@ -91,7 +91,7 @@ function validatePasswordLength(length) {
 }
 
 // Function selectCharacters() calls 'include' functions from within while-loop.
-// Logic causes requires user to confirm at least one character type.
+// Logic requires user to confirm at least one character type.
 function selectCharacters() {
 
 	noneSelected = true;
@@ -246,17 +246,5 @@ function assemblePassword() {
 		}
 
 	}
-
-}
-
-// Function consolePrintout() assists developer in testing and debugging
-function consolePrintout() {
-
-	console.log("passwordLength is = " + passwordLength);
-	console.log("lowercase is = " + lowercase);
-	console.log("uppercase is = " + uppercase);
-	console.log("numeric is = " + numeric);
-	console.log("special is = " + special);
-	console.log("noneSelected is = " + noneSelected);
 
 }

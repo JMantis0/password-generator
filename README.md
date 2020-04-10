@@ -59,6 +59,7 @@ The goal of this project is to create an application that generates a random pas
 * Refreshed comments and ordering of
 functions and variables
 
+### 7) 4/10/2020
 
-
+* Removed `consolePrintout()` function and edited comments
 
