@@ -11,7 +11,7 @@ let passwordLength = 0;  // Variable controls length of password to be generated
 let lowercase = true;	// These variables control whether or not to include
 let uppercase = true;	// character type indicated by the variable name.
 let numeric = true;		// If true, the type is include.
-let special = true;		// If false, the type is not excluded.
+let special = true;		// If false, the type is excluded.
 
 let noneSelected = true; // Variable for logic that requires user to select
 					// at least one character type.
