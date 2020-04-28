@@ -10,15 +10,9 @@ let passwordLength = 0;  // Variable controls length of password to be generated
 
 let lowercase = true;	// These variables control whether or not to include
 let uppercase = true;	// character type indicated by the variable name.
-let numeric = true;		// If true, the type is include.
+let numeric = true;		// If true, the type is included.
 let special = true;		// If false, the type is excluded.
-
-let noneSelected = true; // Variable for logic that requires user to select
-					// at least one character type.
-
-let pool = [];			// Array that password characters are randomly 
-					// selected from.
-
+let pool = [];			// Array that password characters are randomly selected from.
 let password = "";		// Variable for the password.
 
 // Arrays of potential password characters.
@@ -41,7 +35,7 @@ function writePassword() {
 
 }
 
-// Function collectCritera() calls functions that collect password criteria.
+// Function collectCriteria() calls functions that collect password criteria.
 function collectCriteria() {
 
 	passwordLength = validatePasswordLength(validateIsANumber(prompt("Enter number of characters in new password (min 8 max 128)")));
@@ -66,7 +60,7 @@ function validateIsANumber(isThisANumber) {
 }
 
 // Function validatesPasswordLength() tests whether length lies in range 8-128.
-// Logic prompts User to enter a new length if it lies outsite range 8-128.
+// Logic prompts User to enter a new length if it lies outside range 8-128.
 function validatePasswordLength(length) {
 
 	while (length < 8 || length > 128) {
@@ -94,7 +88,7 @@ function validatePasswordLength(length) {
 // Logic requires user to confirm at least one character type.
 function selectCharacters() {
 
-	noneSelected = true;
+	let noneSelected = true;
 	while (noneSelected) {
 
 		lowercase = includeLowercase();
@@ -149,7 +143,7 @@ function includeSpecial() {
 // Function assemblePassword() creates a pool array of characters according
 // to the criteria input by user. A for-loop concatenates the password from pool.
 // Then logic checks the password for each character type to be included.
-// If the check fails to find such characters type a new password is generated. 
+// If the check fails to find such character types a new password is generated. 
 function assemblePassword() {
 
 	let passwordComplete = false;
